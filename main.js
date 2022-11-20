@@ -20,40 +20,18 @@ async function getAPI(URL) {
 }
 
 async function handleAPI() {
-    const data = await getAPI(API_URL);
     box.innerHTML = '';
-    characterData = new Character(data.name, data.name_kanji, data.images.jpg.image_url, data.url);
-
-    //var box = document.createElement('div');
-    var content = document.createElement('div');
-    var imgTag = document.createElement('img');
-    var nameTag = document.createElement('div');
-    var nameKenjiTag = document.createElement('div');
-    var urlTag = document.createElement('a');
-
-    //box.id = 'box';
-    content.id = 'content';
-
-    imgTag.width = '300';
-    imgTag.height = '400';
-    imgTag.src = characterData.images;
-
-    nameTag.className = 'name';
-    nameTag.textContent = characterData.name;
-
-    nameKenjiTag.className = 'nam-kanji';
-    nameKenjiTag.textContent = characterData.name_kanji;
-
-    urlTag.className = 'url';
-    urlTag.href = characterData.url;
-    urlTag.textContent = 'Wiki';
-
-    content.appendChild(imgTag);
-    content.appendChild(nameTag);
-    content.appendChild(nameKenjiTag);
-    content.appendChild(urlTag);
-    box.appendChild(content);
-    app.appendChild(box);
+    const data = await getAPI(API_URL);
+    console.log(data);
+    const characterData = new Character(data.name, data.name_kanji, data.images.jpg.image_url, data.url);
+    box.innerHTML = `
+    <img src="${characterData.images}" alt="">
+    <div class="content">
+        <div class="name">${characterData.name}</div>
+        <div class="name-kanji">${characterData.name_kanji}</div>
+        <a class="url" href="${characterData.url}">Wiki</a>
+    </div>
+    `
 }
 
 get_btn.addEventListener('click', () => {
